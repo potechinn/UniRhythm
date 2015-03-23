@@ -24,14 +24,29 @@ public class GameRoot : MonoBehaviour {
 	private AudioSource audiosrc;
 	
 	//ゲーム全体の経過時間
-	public static float gameTimer = -1.0f;
+	public static float gameTimer = 0.0f;
 
 	//------------------------------------
 	//デバッグ用
 
 	//リズムカウントサウンド
-	//1分間に何拍たたきたいか(count100.mp3のデフォルトは100回)
-	public float soundCount = 100.0f;
+	//1分間に何拍たたきたいか
+	public float soundBPM = 60.0f;
+	//何拍子か
+	public int soundTime  = 4;
+	//何秒ごとに拍子がたたかれるか(Startで初期化)
+	private float soundCountInterval = 0.0f;
+	
+	//サウンドソース
+	public AudioClip SEbeatNormal01;	//通常の拍子音
+	public AudioClip SEbeatTime01;		//小節の区切り音
+
+	//サウンド用の経過時間カウンタ
+	//リセットすることがあるので、ゲーム全体のカウンタとは別に用意している
+	private float soundTimer = 0.0f;
+	//拍子を何回叩いたか
+	//区切りの音を鳴らしたらリセットする
+	private int soundBeatCounter = 0;
 
 
 	//#################
@@ -46,10 +61,8 @@ public class GameRoot : MonoBehaviour {
 
 		//効果音再生の準備
 		audiosrc = GetComponent<AudioSource>();
-		//デフォルト(count100.mp3)のピッチを1とした時、
-		//soundCountを実現するにはどのくらいのピッチで再生すればよいか
-		audiosrc.pitch = soundCount / 100;
-		audiosrc.Play ();
+		//何秒間隔でリズム音を鳴らすか
+		soundCountInterval = 60 / soundBPM;
 
 	}
 	
@@ -60,9 +73,35 @@ public class GameRoot : MonoBehaviour {
 		//ゲーム全体の経過時間を更新
 		gameTimer += Time.deltaTime;
 
-		//何秒ごとに拍子がたたかれるか
-		float soundCountInterval = soundCount / 60;
+	}
 
+	//#################
+	//	FixedUpdate
+	//#################
+	void FixedUpdate(){
+		//リズム再生用のゲーム全体の経過時間を更新
+		soundTimer += Time.deltaTime;
+
+		if(soundTimer > soundCountInterval){
+			soundBeatCounter += 1;
+
+			if(soundBeatCounter == 1){	//区切り音
+				audiosrc.PlayOneShot(SEbeatTime01);
+				//GameRoot.log("playTime : " + GameRoot.gameTimer);
+				//GameRoot.log ("Play Time beat");
+			} else if(soundBeatCounter >= soundTime){	//通常の拍子(末尾)
+				soundBeatCounter = 0;
+				audiosrc.PlayOneShot(SEbeatNormal01);
+				//GameRoot.log("playTime : " + GameRoot.gameTimer);
+				//GameRoot.log ("Play Last Normal beat");
+			} else {	//通常の拍子
+				audiosrc.PlayOneShot(SEbeatNormal01);
+				//GameRoot.log("playTime : " + GameRoot.gameTimer);
+				//GameRoot.log ("Play Normal beat");
+			}
+
+			soundTimer = 0.0f;
+		}
 
 	}
 

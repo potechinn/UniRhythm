@@ -55,6 +55,7 @@
      <Compile Include="Assets\ImportAssets\UnityChan\Scripts\SpringManager.cs" />
      <Compile Include="Assets\ImportAssets\UnityChan\Scripts\UnityChanControlScriptWithRgidBody.cs" />
      <Compile Include="Assets\Scripts\EnemyControl.cs" />
+     <Compile Include="Assets\Scripts\EnemyControl2.cs" />
      <Compile Include="Assets\Scripts\GameRoot.cs" />
      <Compile Include="Assets\Scripts\PlayerControl.cs" />
      <None Include="Assets\ImportAssets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
