@@ -89,7 +89,7 @@ public class GameRoot : MonoBehaviour {
 		if(soundTimer > soundCountInterval){
 			//拍を打つタイミングである(他スクリプトから参照する)
 			soundBeat = true;
-
+			//拍子を何回叩いたかカウンタ
 			soundBeatCounter += 1;
 
 			if(soundBeatCounter == 1){	//区切り音
@@ -106,9 +106,10 @@ public class GameRoot : MonoBehaviour {
 				//GameRoot.log("playTime : " + GameRoot.gameTimer);
 				//GameRoot.log ("Play Normal beat");
 			}
-
+			//拍を叩いたので、リズム再生用のゲーム全体の経過時間をリセット
 			soundTimer = 0.0f;
 		} else {
+			//拍を打つタイミングではない
 			soundBeat = false;
 		}
 

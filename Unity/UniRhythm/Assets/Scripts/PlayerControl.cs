@@ -97,7 +97,7 @@ public class PlayerControl : MonoBehaviour {
 				if(Input.GetMouseButtonDown(0)){
 					this.nextStep = STEP.ATTACK;
 					GameRoot.log("playTime : " + GameRoot.gameTimer);
-					GameRoot.log("nextStep -> ATTACK");
+					GameRoot.log("PLAYER -> ATTACK");
 				}
 				break;
 			case STEP.ATTACK:
@@ -105,7 +105,7 @@ public class PlayerControl : MonoBehaviour {
 				if(attackTimer < 0.0f){
 					this.nextStep = STEP.IDLE;
 					GameRoot.log("playTime : " + GameRoot.gameTimer);
-					GameRoot.log("ATTACK END");
+					GameRoot.log("PLAYER -> ATTACK END");
 				}
 				break;
 			case STEP.DAMAGED:
@@ -113,7 +113,7 @@ public class PlayerControl : MonoBehaviour {
 				if(animStateInfo.fullPathHash == stateIdle){
 					this.nextStep = STEP.IDLE;
 					GameRoot.log("playTime : " + GameRoot.gameTimer);
-					GameRoot.log("nextStep -> IDLE");
+					GameRoot.log("PLAYER -> IDLE");
 				}
 				break;
 			default:
@@ -154,7 +154,7 @@ public class PlayerControl : MonoBehaviour {
 				vc = (Random.value < 0.5)? VCattack01 : VCattack02;
 				audiosrc.PlayOneShot(vc);
 				
-				GameRoot.log("ATTACK START!");
+				GameRoot.log("PLAYER -> ATTACK START!");
 				break;
 			case STEP.DAMAGED:
 				animator.SetBool ("Damaged", true);
@@ -195,7 +195,7 @@ public class PlayerControl : MonoBehaviour {
 		if(collis.gameObject.CompareTag("Enemy")){
 			this.nextStep = STEP.DAMAGED;
 			GameRoot.log("playTime : " + GameRoot.gameTimer);
-			GameRoot.log("nextStep -> DAMAGED");
+			GameRoot.log("PLAYER -> DAMAGED");
 		}
 	}
 
