@@ -26,6 +26,13 @@ public class GameRoot : MonoBehaviour {
 	//ゲーム全体の経過時間
 	public static float gameTimer = 0.0f;
 
+	//拍を打つタイミングかどうか
+	public static bool soundBeat = false;
+
+	//拍子を何回叩いたか
+	//区切りの音を鳴らしたらリセットする
+	public static int soundBeatCounter = 0;
+
 	//------------------------------------
 	//デバッグ用
 
@@ -44,9 +51,6 @@ public class GameRoot : MonoBehaviour {
 	//サウンド用の経過時間カウンタ
 	//リセットすることがあるので、ゲーム全体のカウンタとは別に用意している
 	private float soundTimer = 0.0f;
-	//拍子を何回叩いたか
-	//区切りの音を鳴らしたらリセットする
-	private int soundBeatCounter = 0;
 
 
 	//#################
@@ -83,6 +87,9 @@ public class GameRoot : MonoBehaviour {
 		soundTimer += Time.deltaTime;
 
 		if(soundTimer > soundCountInterval){
+			//拍を打つタイミングである(他スクリプトから参照する)
+			soundBeat = true;
+
 			soundBeatCounter += 1;
 
 			if(soundBeatCounter == 1){	//区切り音
@@ -101,6 +108,8 @@ public class GameRoot : MonoBehaviour {
 			}
 
 			soundTimer = 0.0f;
+		} else {
+			soundBeat = false;
 		}
 
 	}

@@ -3,6 +3,9 @@ using System.Collections;
 
 public class EnemyControl2 : MonoBehaviour {
 
+	//GameRoot制御用
+	private GameRoot gameroot;
+
 	//アニメーション制御用
 	private Animator animator;
 	
@@ -29,7 +32,11 @@ public class EnemyControl2 : MonoBehaviour {
 	
 	//移動速度
 	public float SPEED = 1.0f;
-	
+
+	//待機アニメーション
+	//ジャンプの高さ(Y方向)
+	public float STANDBY_HEIGHT = 2.0f;
+
 	//プレイヤーの攻撃を食らった時
 	//ふっとぶ勢い(X方向)
 	public float BLOWOFF_SPEED = 8.5f;
@@ -45,17 +52,32 @@ public class EnemyControl2 : MonoBehaviour {
 	//毎フレーム経過時間を差し引いていく。
 	//このタイマーが0未満になったら自分を消滅させる。
 	private float attackEndTimer = 0.0f;
+
+	private float animSpeed = 1.0f;
 	
 	
 	//#################
 	//	Start
 	//#################
 	void Start () {
+		//GameRoot制御用
+		gameroot = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameRoot>();
+
 		//アニメーション制御の準備
 		animator = this.GetComponent<Animator> ();
 		//物理法則制御の準備
 		rgbody = this.GetComponent<Rigidbody>();
-		
+
+		//アニメーション再生速度の設定
+		//BGMのBPMが「120」の時、再生速度は「1」
+		animSpeed = 1.0f * gameroot.soundBPM / 120.0f;
+		//アニメーターのスピードを設定
+		//このGameObjectのアニメーションがすべてこのスピードになるので注意
+		animator.speed = animSpeed;
+
+		GameRoot.log("playTime : " + GameRoot.gameTimer);
+		GameRoot.log("EnemyAnimationSpeed : " + animSpeed);
+
 		//次ステップを「待機」に設定
 		this.nextStep = STEP.STANDBY;
 	}
@@ -112,7 +134,7 @@ public class EnemyControl2 : MonoBehaviour {
 			case STEP.RUN:
 				break;
 			case STEP.STANDBY:
-				animator.SetBool ("StandBy", true);
+				//animator.SetBool ("StandBy", true);
 				break;
 			case STEP.ATTACK:
 				break;
@@ -146,6 +168,39 @@ public class EnemyControl2 : MonoBehaviour {
 		}
 		
 		this.rgbody.velocity = velocity;
+	}
+	
+	//#################
+	//	FixedUpdate
+	//#################
+	void FixedUpdate(){
+		//BGMのテンポと合わせたい動作はここへ書く
+
+		if(GameRoot.soundBeat == true){
+			if(this.step == STEP.STANDBY){
+
+				//その場ジャンプ
+				rgbody.AddForce(
+				Vector3.up * STANDBY_HEIGHT,
+				ForceMode.VelocityChange
+				);
+				GameRoot.log("playTime : " + GameRoot.gameTimer);
+				GameRoot.log("Enemy -> STAND BY JUMP");
+
+				if(GameRoot.soundBeatCounter == 3){
+					rgbody.AddForce(
+						-3.0f,
+						2.0f,
+						0,
+						ForceMode.VelocityChange
+						);
+
+				}
+
+			}
+
+		}
+
 	}
 	
 	//#################

@@ -1,11 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameRoot.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\EnemyControl2.cs">
     <Files>
-      <File FileName="Assets\Scripts\EnemyControl.cs" Line="158" Column="11" />
-      <File FileName="Assets\Scripts\GameRoot.cs" Line="37" Column="28" />
+      <File FileName="Assets\Scripts\EnemyControl.cs" Line="43" Column="22" />
+      <File FileName="Assets\Scripts\GameRoot.cs" Line="93" Column="20" />
       <File FileName="Assets\Scripts\PlayerControl.cs" Line="197" Column="53" />
-      <File FileName="Assets\Scripts\EnemyControl2.cs" Line="80" Column="19" />
+      <File FileName="Assets\Scripts\EnemyControl2.cs" Line="185" Column="29" />
+      <File FileName="Assets\Scripts\SphereControl.cs" Line="18" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

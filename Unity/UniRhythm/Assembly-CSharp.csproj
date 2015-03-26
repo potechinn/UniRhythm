@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\EnemyControl2.cs" />
      <Compile Include="Assets\Scripts\GameRoot.cs" />
      <Compile Include="Assets\Scripts\PlayerControl.cs" />
+     <Compile Include="Assets\Scripts\SphereControl.cs" />
      <None Include="Assets\ImportAssets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
      <None Include="Assets\ImportAssets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
      <None Include="Assets\ImportAssets\dpt_zippermouth\chr\Materials\T_single.shader" />
